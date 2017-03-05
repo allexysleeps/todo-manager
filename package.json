@@ -5,16 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-node": "nodemon app"
+    "dev-node": "nodemon app",
+    "dev-react": "webpack -w"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
-    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.23.0",
     "babel-register": "^6.23.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.0",
@@ -25,9 +22,19 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "react": "^15.4.2",
-    "webpack": "^2.2.1"
+    "react-dom": "^15.4.2"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.26.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "node-sass": "^4.5.0",
+    "nodemon": "^1.11.0",
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.13.2",
+    "webpack": "^2.2.1"
   }
 }

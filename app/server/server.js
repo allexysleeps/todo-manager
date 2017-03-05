@@ -7,7 +7,7 @@ import fs from 'fs';
 require('./passport');
 
 const app = express();
-const clientSide = `${__dirname}/../client`;
+const reactApp = `${__dirname}/../client/prod`;
 
 app
 	.use(bodyParser.json())
@@ -19,7 +19,7 @@ app
 	}))
 	.use(passport.initialize())
 	.use(passport.session())
-	.use(express.static(clientSide))
+	.use(express.static(reactApp))
 	.get('/test', (req, res, next)=> {
 		res.send('test');
 	})
