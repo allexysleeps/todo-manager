@@ -10522,7 +10522,7 @@ var TaskItem = function (_React$Component) {
 				),
 				_react2.default.createElement(
 					'select',
-					{ type: 'select', defaultValue: status },
+					{ className: 'task-status', type: 'select', defaultValue: status },
 					_react2.default.createElement(
 						'option',
 						{ value: 'New' },
@@ -23731,7 +23731,7 @@ exports = module.exports = __webpack_require__(113)();
 
 
 // module
-exports.push([module.i, "* {\n  font-family: 'Helvetica Neue';\n  box-sizing: border-box; }\n\nhtml,\nbody,\n#app,\n.app-body {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: relative; }\n\n.login-frame {\n  width: 300px;\n  margin: 200px auto 0;\n  box-shadow: 0px 0px 5px #cacaca;\n  text-align: center;\n  padding: 30px 0; }\n  .login-frame h3 {\n    margin: 0 0 20px; }\n  .login-frame input {\n    display: inline-block;\n    width: 80%;\n    margin-top: 20px; }\n\nheader {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n  header h1 {\n    color: #fff; }\n\nfooter {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: absolute;\n  width: 100%;\n  bottom: 0; }\n  footer p {\n    color: #fff; }\n\n.page-wrapper {\n  max-width: 1000px;\n  margin: 0 auto; }\n\n.task-item {\n  display: flex;\n  justify-content: space-between; }\n\n.time-created {\n  width: 85px; }\n\n.task-title {\n  width: 250px; }\n\n.task-description {\n  width: 500px;\n  text-overflow: ellipsis; }\n", ""]);
+exports.push([module.i, "* {\n  font-family: 'Helvetica Neue';\n  box-sizing: border-box; }\n\nhtml,\nbody,\n#app,\n.app-body {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: relative; }\n\n.login-frame {\n  width: 300px;\n  margin: 200px auto 0;\n  box-shadow: 0px 0px 5px #cacaca;\n  text-align: center;\n  padding: 30px 0; }\n  .login-frame h3 {\n    margin: 0 0 20px; }\n  .login-frame input {\n    display: inline-block;\n    width: 80%;\n    margin-top: 20px; }\n\nheader {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n  header h1 {\n    color: #fff; }\n\nfooter {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: absolute;\n  width: 100%;\n  bottom: 0; }\n  footer p {\n    color: #fff; }\n\n.page-wrapper {\n  max-width: 1000px;\n  margin: 0 auto; }\n\n.task-item {\n  display: flex;\n  justify-content: space-between; }\n\n.time-created {\n  width: 100px; }\n\n.task-title {\n  width: 250px; }\n\n.task-description {\n  width: 500px;\n  text-overflow: ellipsis; }\n\n.task-status {\n  width: 150px; }\n", ""]);
 
 // exports
 

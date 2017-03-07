@@ -16,7 +16,7 @@ export default class TaskItem extends React.Component {
 				<span className="time-created">{shortenDate}</span>
 				<span className="task-title">{title}</span>
 				<span className='task-description'>{description}</span>
-				<select type='select' defaultValue={status} >
+				<select className="task-status" type='select' defaultValue={status} >
 					<option value="New">New</option>
 					<option value="In progress">In progress</option>
 					<option value="Done">Done</option>
