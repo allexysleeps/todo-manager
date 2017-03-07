@@ -16,6 +16,7 @@ function authenticate(username, password, done) {
 				return;
 			} else {
 				done(null, user);
+				console.log('passed');
 			}
 		}, done);
 }
