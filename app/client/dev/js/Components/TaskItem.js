@@ -9,7 +9,7 @@ export default class TaskItem extends React.Component {
 		
 		const { timestamp, title, description, status } = this.props.data;
 		let taskDate = new Date(Number(timestamp));
-		let shortenDate = `${taskDate.getMonth()}/${taskDate.getDay()}/${taskDate.getYear()}`;
+		let shortenDate = `${taskDate.getMonth()}/${taskDate.getDay()}/${taskDate.getFullYear()}`;
 		
 		return(
 			<div className='task-item'>
