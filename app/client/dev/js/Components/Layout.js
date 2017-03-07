@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 
 import LoginScreen from './LoginScreen';
+import Header from './Header';
+import Footer from './Footer';
+import TasksTable from './TasksTable';
 
 export default class Layout extends React.Component {
 	constructor() {
@@ -37,7 +40,11 @@ export default class Layout extends React.Component {
 	}
 	render() {
 		return (
-			<LoginScreen />
+			<div className='app-body'>
+				<Header />
+				<TasksTable />
+				<Footer />
+			</div>
 		);
 	};
 }
