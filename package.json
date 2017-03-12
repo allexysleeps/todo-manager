@@ -34,6 +34,8 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
+    "react-inlinesvg": "^0.5.5",
+    "react-svg-inline": "^1.2.0",
     "sass-loader": "^6.0.2",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1"

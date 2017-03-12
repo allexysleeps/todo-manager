@@ -38,14 +38,19 @@ export default class TaskItem extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		const { timestamp, title, description, status } = this.props.data;
 		let taskDate = new Date(Number(timestamp));
 		let shortenDate = `${taskDate.getMonth()}/${taskDate.getDay()}/${taskDate.getFullYear()}`;
 		return(
 			<div className='task-item'>
 				<span className="time-created">{shortenDate}</span>
-				<span className="task-title">{title}</span>
+				<div className="task-title" title={title}>
+					<span>{title}</span>
+					<div className="tools">
+						<span className="tool-edit" onClick={(e)=>{this.props.toggleEditor(e, title)}}>edit</span>
+						<span className="tool-more" onClick={(e)=>{this.props.toggleShowMore(e, title)}}>more</span>
+					</div>
+				</div>
 				<div className="task-description">
 					<span className="text">{description}</span>
 					<div className="tools">

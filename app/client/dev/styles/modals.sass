@@ -1,0 +1,43 @@
+.modal-more
+	position: absolute
+	left: 50%
+	top: 50%
+	width: 500px
+	max-height: 300px
+	transform: translate(-50%, -50%)
+	padding: 10px
+	border: solid 1px $colorGrayLines
+	background: $colorWhite
+	.modal-more-content
+		height: 100%
+		overflow: scroll
+.modal-edit
+	position: absolute
+	left: 50%
+	top: 50%
+	width: 200px
+	max-height: 300px
+	transform: translate(-50%, -50%)
+	padding: 10px
+	
+
+.cross
+	position: absolute
+	right: -10px
+	top: -10px;
+	background: $colorBlack
+	width: 30px
+	height: 30px
+	display: flex
+	justify-content: center
+	align-items: center
+	border-radius: 50%
+	cursor: pointer
+	span
+		display: flex
+		height: 100%
+		svg
+			fill: $colorWhite
+	&:hover
+		background: $colorViolet
+				
