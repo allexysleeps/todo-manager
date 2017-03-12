@@ -27,7 +27,9 @@ export default class Layout extends React.Component {
 	_getData() {
 		axios.get(`/1`)
 			.then((res)=>{
-				// console.log(res);
+				this.setState({
+					data: res.data
+				})
 			})
 			.catch((err)=>{
 				console.log(err);
@@ -39,10 +41,11 @@ export default class Layout extends React.Component {
 		this._getData();
 	}
 	render() {
+		// console.log(this.state.data)
 		return (
 			<div className='app-body'>
 				<Header />
-				<TasksTable />
+				<TasksTable data={this.state.data}/>
 				<Footer />
 			</div>
 		);

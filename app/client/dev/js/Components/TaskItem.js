@@ -16,7 +16,8 @@ export default class TaskItem extends React.Component {
 			status: this.props.data.status,
 			user_id: 1
 		}
-		switch(field) {
+		
+	switch(field) {
 			case 'status': {
 				newData.status = changedData;
 				break;
@@ -29,7 +30,7 @@ export default class TaskItem extends React.Component {
 
 		axios.put(`/1/${this.props.data.timestamp}`, newData)
 			.then((res)=> {
-				console.log(res);
+
 			})
 			.catch((err)=> {
 				console.log(err);
@@ -37,7 +38,7 @@ export default class TaskItem extends React.Component {
 	}
 
 	render() {
-		
+		console.log(this.props)
 		const { timestamp, title, description, status } = this.props.data;
 		let taskDate = new Date(Number(timestamp));
 		let shortenDate = `${taskDate.getMonth()}/${taskDate.getDay()}/${taskDate.getFullYear()}`;
@@ -45,8 +46,17 @@ export default class TaskItem extends React.Component {
 			<div className='task-item'>
 				<span className="time-created">{shortenDate}</span>
 				<span className="task-title">{title}</span>
-				<span className='task-description'>{description}</span>
-				<select onChange={(e)=>{this._updateTask(e, 'status')}} className="task-status" type='select' defaultValue={status} >
+				<div className="task-description">
+					<span className="text">{description}</span>
+					<div className="tools">
+						<span className="tool-edit">edit</span>
+						<span className="tool-more" onClick={(e)=>{this.props.toggleShowMore(e, description)}}>more</span>
+					</div>
+				</div>
+				<select onChange={(e)=>{this._updateTask(e, 'status')}} 
+						className="task-status"
+						type='select'
+						defaultValue={status} >
 					<option value="New">New</option>
 					<option value="In progress">In progress</option>
 					<option value="Done">Done</option>

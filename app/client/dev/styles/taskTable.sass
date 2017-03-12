@@ -1,15 +1,53 @@
+
+.task-table
+	margin-top: 25px
+	border: solid 1px $colorGrayLines
 .page-wrapper
 	max-width: 1000px
 	margin: 0 auto
-.task-item
+.task-item,
+.task-table-header
 	display: flex
 	justify-content: space-between
+	align-items: center
+	border-bottom: solid 1px $colorGrayLines
+	span
+		border-right: solid 1px $colorGrayLines
+		display: block
+		padding: 5px
+		overflow: hidden
+		white-space: nowrap
+		text-overflow: ellipsis
 .time-created
 	width: 100px
 .task-title
 	width: 250px
 .task-description
 	width: 500px
-	text-overflow: ellipsis
+	position: relative
+	.tools
+		display: none
+		position: absolute
+		right: 10px
+		top: 0
+		width: 100px
+		align-items: center
+		height: 100%
+		span
+			background: $colorBlack
+			color: $colorWhite
+			border-radius: 10px
+			text-align: center
+			width: 50px
+			display: flex
+			justify-content: center
+			align-items: center
+			height: 18px
+			cursor: pointer
+			&:hover
+				background: $colorViolet
+	&:hover
+		.tools
+			display: flex
 .task-status
 	width: 150px
