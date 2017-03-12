@@ -27,7 +27,7 @@ export default class Layout extends React.Component {
 	_getData() {
 		axios.get(`/1`)
 			.then((res)=>{
-				console.log(res);
+				// console.log(res);
 			})
 			.catch((err)=>{
 				console.log(err);
