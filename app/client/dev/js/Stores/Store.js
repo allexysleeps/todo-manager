@@ -10,11 +10,14 @@ class Store extends EventEmitter {
 	}
 
 	_getStoreData() {
+		console.log('data polled from the store', this.tasks);
 		return this.tasks
 	}
 	
-	_updateTask(e, data, field, isStatus) {
+	_updateTask(editingData) {
 		
+		let { e, data, field, isStatus } = editingData;
+
 		let changedData = isStatus 
 			? e.target.value 
 			: e.target.parentElement.parentElement.parentElement.getElementsByTagName('textarea')[0].value;
@@ -27,20 +30,12 @@ class Store extends EventEmitter {
 			user_id: 1
 		}
 		
-		switch(field) {
-			case 'status': {
-				newData.status = changedData;
-				break;
-			}
-			case 'title': {
-				newData.title = changedData;
-				break;
-			}
-		}
+		newData[field] = changedData;
 		
 		axios.put(`/1/${data.timestamp}`, newData)
 			.then((res)=> {
 				this.emit('change');
+				this._getServerData();
 			})
 			.catch((err)=> {
 				console.log(err);
@@ -58,11 +53,19 @@ class Store extends EventEmitter {
 			})
 	}
 
+	_handleActions(action) {
+		switch (action.type) {
+			case 'UPDATE_TASK': {
+				this._updateTask(action.data)
+			}
+		}
+	}
+
 
 }
 
-const taskStore = new Store;
+const TaskStore = new Store;
 
-// dispatcher.register()
+dispatcher.register(TaskStore._handleActions.bind(TaskStore));
 
-export default taskStore;
+export default TaskStore;

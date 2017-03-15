@@ -1,15 +1,14 @@
 import React from 'react';
 import Isvg from 'react-inlinesvg';
 
-import TaskStore from './../Stores/Store';
+import * as TaskActions from './../Actions/Actions';
 
 export default class ModalEdit extends React.Component {
 	constructor() {
 		super()
 	}
 	_submitEditor(e) {
-		console.log(e.target);
-		TaskStore._updateTask(e, this.props.editingData, this.props.editingField, false);
+		TaskActions._updateTask(e, this.props.editingData, this.props.editingField, false);
 		this.props.toggleEditor(e, false);
 	}
 	render() {

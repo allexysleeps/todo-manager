@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+
 import TaskStore from '../Stores/Store';
+
+import TaskItemTextField from './TaskItemTextField';
 
 export default class TaskItem extends React.Component {
 	constructor() {
@@ -17,20 +20,16 @@ export default class TaskItem extends React.Component {
 		return(
 			<div className='task-item'>
 				<span className="time-created">{shortenDate}</span>
-				<div className="task-title" title={title}>
-					<span>{title}</span>
-					<div className="tools">
-						<span className="tool-edit" onClick={(e)=>{this.props.toggleEditor(e, title, this.props.data, 'title')}}>edit</span>
-						<span className="tool-more" onClick={(e)=>{this.props.toggleShowMore(e, title)}}>more</span>
-					</div>
-				</div>
-				<div className="task-description">
-					<span className="text">{description}</span>
-					<div className="tools">
-						<span className="tool-edit">edit</span>
-						<span className="tool-more" onClick={(e)=>{this.props.toggleShowMore(e, description)}}>more</span>
-					</div>
-				</div>
+				<TaskItemTextField 
+					type='title'
+					data={this.props.data}
+					toggleEditor={this.props.toggleEditor}
+					toggleShowMore={this.props.toggleShowMore}/>
+				<TaskItemTextField
+					type='description'
+					data={this.props.data}
+					toggleEditor={this.props.toggleEditor}
+					toggleShowMore={this.props.toggleShowMore}/>
 				<select onChange={(e)=>{TaskStore._updateTask(e, this.props.data, true)}} 
 						className="task-status"
 						type='select'

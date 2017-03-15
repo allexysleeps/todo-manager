@@ -23,13 +23,14 @@ export default class Layout extends React.Component {
 	componentWillMount() {
 		TaskStore._getServerData();
 		TaskStore.on('change', ()=> {
+			console.log('store data changed');
 			this.setState({
 				data: TaskStore._getStoreData()
 			})
 		})
 	}
 	componentDidMount() {
-		let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 10000);
+		let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 1000000);
 		this.setState({
 			IntervalServerPull
 		})
