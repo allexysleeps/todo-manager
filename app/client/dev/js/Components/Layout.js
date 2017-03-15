@@ -42,12 +42,14 @@ export default class Layout extends React.Component {
 	render() {
 		return (
 			<div className='app-body'>
+			<Header />
 			{
 				this.state.data
 					? <TasksTable data = {this.state.data}/>
 					: ''
 			}
-			</div>		
+			</div>
+			<Footer />
 		);
 	};
 }
