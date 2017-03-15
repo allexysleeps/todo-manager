@@ -17,6 +17,7 @@ function addTask(req, res, next) {
 		status: req.body.status,
 		user_id: req.params.user_id		
 	}
+	console.log(newTask);
 	db('tasks')
 		.insert(newTask)
 		.then(()=>{
@@ -48,6 +49,8 @@ function updateTask(req, res, next) {
 		.update(newData)
 		.then(()=> {
 			res.sendStatus(200);
+			console.log('task updated');
+			console.log(newData);
 		})
 }
 

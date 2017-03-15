@@ -21,7 +21,8 @@
 	padding: 10px
 	
 
-.cross
+.cross,
+.ok
 	position: absolute
 	right: -10px
 	top: -10px;
@@ -35,9 +36,13 @@
 	cursor: pointer
 	span
 		display: flex
+		align-items: center
 		height: 100%
 		svg
 			fill: $colorWhite
+			max-height: 80%
 	&:hover
 		background: $colorViolet
+.ok
+	right: 25px
 				

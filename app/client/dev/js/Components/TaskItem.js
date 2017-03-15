@@ -1,40 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import TaskStore from '../Stores/Store';
 
 export default class TaskItem extends React.Component {
 	constructor() {
-	super()
-
-	this._updateTask = this._updateTask.bind(this);
-	}
-	_updateTask(e, field) {
-		let changedData = e.target.value;
-		let newData = {
-			timestamp: this.props.data.timestamp,
-			title: this.props.data.title,
-			description: this.props.data.description,
-			status: this.props.data.status,
-			user_id: 1
+		super()
+		this.state = {
+			
 		}
-		
-	switch(field) {
-			case 'status': {
-				newData.status = changedData;
-				break;
-			}
-			case 'title': {
-				newData.title = changedData;
-				break;
-			}
-		}
-
-		axios.put(`/1/${this.props.data.timestamp}`, newData)
-			.then((res)=> {
-
-			})
-			.catch((err)=> {
-				console.log(err);
-			})
 	}
 
 	render() {
@@ -47,7 +20,7 @@ export default class TaskItem extends React.Component {
 				<div className="task-title" title={title}>
 					<span>{title}</span>
 					<div className="tools">
-						<span className="tool-edit" onClick={(e)=>{this.props.toggleEditor(e, title)}}>edit</span>
+						<span className="tool-edit" onClick={(e)=>{this.props.toggleEditor(e, title, this.props.data, 'title')}}>edit</span>
 						<span className="tool-more" onClick={(e)=>{this.props.toggleShowMore(e, title)}}>more</span>
 					</div>
 				</div>
@@ -58,7 +31,7 @@ export default class TaskItem extends React.Component {
 						<span className="tool-more" onClick={(e)=>{this.props.toggleShowMore(e, description)}}>more</span>
 					</div>
 				</div>
-				<select onChange={(e)=>{this._updateTask(e, 'status')}} 
+				<select onChange={(e)=>{TaskStore._updateTask(e, this.props.data, true)}} 
 						className="task-status"
 						type='select'
 						defaultValue={status} >
