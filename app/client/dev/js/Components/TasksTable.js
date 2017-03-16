@@ -35,8 +35,7 @@ export default class TasksTable extends React.Component {
 	render() {
 		const { data } = this.props;
 		return(
-			<div className="page-wrapper">
-				<div className="task-table">
+			<div className="task-table">
 					<TaskTableHeader />
 					{
 						data
@@ -51,7 +50,6 @@ export default class TasksTable extends React.Component {
 							}) 
 							: ''
 					}
-				</div>
 				{
 					this.state.showMoreContent ? 
 						<div className="modal-more">

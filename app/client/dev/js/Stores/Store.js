@@ -34,8 +34,19 @@ class Store extends EventEmitter {
 		
 		axios.put(`/1/${data.timestamp}`, newData)
 			.then((res)=> {
-				this.emit('change');
 				this._getServerData();
+			})
+			.catch((err)=> {
+				console.log(err);
+			})
+	}
+
+	_createTask(data) {
+		console.log(data);
+		axios.post('/1', data)
+			.then((res)=> {
+				this._getServerData();
+				console.log(res);
 			})
 			.catch((err)=> {
 				console.log(err);
@@ -56,7 +67,12 @@ class Store extends EventEmitter {
 	_handleActions(action) {
 		switch (action.type) {
 			case 'UPDATE_TASK': {
-				this._updateTask(action.data)
+				this._updateTask(action.data);
+				break;
+			}
+			case 'CREATE_TASK': {
+				this._createTask(action.data);
+				break;
 			}
 		}
 	}

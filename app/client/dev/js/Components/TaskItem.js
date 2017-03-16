@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import TaskStore from '../Stores/Store';
+import * as TaskActions from './../Actions/Actions';
 
 import TaskItemTextField from './TaskItemTextField';
 
@@ -30,10 +30,10 @@ export default class TaskItem extends React.Component {
 					data={this.props.data}
 					toggleEditor={this.props.toggleEditor}
 					toggleShowMore={this.props.toggleShowMore}/>
-				<select onChange={(e)=>{TaskStore._updateTask(e, this.props.data, true)}} 
+				<select onChange={(e)=>{TaskActions._updateTask(e, this.props.data, 'status', true)}} 
 						className="task-status"
 						type='select'
-						defaultValue={status} >
+						value={status} >
 					<option value="New">New</option>
 					<option value="In progress">In progress</option>
 					<option value="Done">Done</option>

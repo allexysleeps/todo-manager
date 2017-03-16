@@ -7,6 +7,7 @@ import LoginScreen from './LoginScreen';
 import Header from './Header';
 import Footer from './Footer';
 import TasksTable from './TasksTable';
+import AddTask from './AddTask';
 
 
 
@@ -16,8 +17,15 @@ export default class Layout extends React.Component {
 		this.state = {
 			data: TaskStore._getStoreData(),
 			authenticated: false,
-			user: 'test'
+			user: 'test',
+			addModuleStatus: false
 		}
+	}
+
+	_toggleAddTaskModal(e, status) {
+		this.setState({
+			addModuleStatus: status
+		})
 	}
 
 	componentWillMount() {
@@ -30,7 +38,7 @@ export default class Layout extends React.Component {
 		})
 	}
 	componentDidMount() {
-		let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 1000000);
+		let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 10000);
 		this.setState({
 			IntervalServerPull
 		})
@@ -43,13 +51,22 @@ export default class Layout extends React.Component {
 		return (
 			<div className='app-body'>
 			<Header />
-			{
-				this.state.data
-					? <TasksTable data = {this.state.data}/>
-					: ''
-			}
+			<div className="page-wrapper">
+				{
+					this.state.data
+						? <TasksTable data = {this.state.data}/>
+						: ''
+				}
+				<div className="button-add" onClick={(e)=>{this._toggleAddTaskModal(e, true)}}>
+					add task
+				</div>
+				{
+					this.state.addModuleStatus
+						? <AddTask toggleModal={this._toggleAddTaskModal.bind(this)}/>
+						: '' 
+				}
 			</div>
-			<Footer />
+			</div>
 		);
 	};
 }

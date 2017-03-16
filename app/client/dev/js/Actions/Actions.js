@@ -8,3 +8,10 @@ export function _updateTask(e, data, field, isStatus) {
 		}
 	})
 }
+
+export function _createTask(data) {
+	dispatcher.dispatch({
+		type: 'CREATE_TASK',
+		data: data
+	})
+}
