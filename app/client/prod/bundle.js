@@ -3848,7 +3848,19 @@ var Store = function (_EventEmitter) {
 			console.log(data);
 			_axios2.default.post('/1', data).then(function (res) {
 				_this3._getServerData();
-				console.log(res);
+				console.log('task added, response:', res);
+			}).catch(function (err) {
+				console.log(err);
+			});
+		}
+	}, {
+		key: '_deleteTask',
+		value: function _deleteTask(data) {
+			var _this4 = this;
+
+			_axios2.default.delete('/1/' + data).then(function (res) {
+				_this4._getServerData();
+				console.log('delete succeed, response:', res);
 			}).catch(function (err) {
 				console.log(err);
 			});
@@ -3856,11 +3868,11 @@ var Store = function (_EventEmitter) {
 	}, {
 		key: '_getServerData',
 		value: function _getServerData() {
-			var _this4 = this;
+			var _this5 = this;
 
 			_axios2.default.get('/1').then(function (res) {
-				_this4.tasks = res.data;
-				_this4.emit('change');
+				_this5.tasks = res.data;
+				_this5.emit('change');
 			}).catch(function (err) {
 				console.log(err);
 			});
@@ -3877,6 +3889,11 @@ var Store = function (_EventEmitter) {
 				case 'CREATE_TASK':
 					{
 						this._createTask(action.data);
+						break;
+					}
+				case 'DELETE_TASK':
+					{
+						this._deleteTask(action.data);
 						break;
 					}
 			}
@@ -10920,7 +10937,8 @@ var Layout = function (_React$Component) {
 						'add task'
 					),
 					this.state.addModuleStatus ? _react2.default.createElement(_AddTask2.default, { toggleModal: this._toggleAddTaskModal.bind(this) }) : ''
-				)
+				),
+				_react2.default.createElement(_Footer2.default, null)
 			);
 		}
 	}]);
@@ -11296,6 +11314,11 @@ var TaskItem = function (_React$Component) {
 	}
 
 	_createClass(TaskItem, [{
+		key: '_deleteTask',
+		value: function _deleteTask(e) {
+			TaskActions._deleteTask(this.props.data.timestamp);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -11314,7 +11337,14 @@ var TaskItem = function (_React$Component) {
 				_react2.default.createElement(
 					'span',
 					{ className: 'time-created' },
-					shortenDate
+					shortenDate,
+					_react2.default.createElement(
+						'div',
+						{ className: 'button-delete', onClick: function onClick(e) {
+								_this2._deleteTask(e);
+							} },
+						'Delete'
+					)
 				),
 				_react2.default.createElement(_TaskItemTextField2.default, {
 					type: 'title',
@@ -25809,7 +25839,7 @@ exports = module.exports = __webpack_require__(123)();
 
 
 // module
-exports.push([module.i, "* {\n  font-family: 'Helvetica Neue';\n  box-sizing: border-box;\n  font-size: 14px; }\n\nhtml,\nbody,\n#app,\n.app-body {\n  min-width: 100%;\n  min-height: 100%;\n  margin: 0;\n  position: relative; }\n\n.login-frame {\n  width: 300px;\n  margin: 200px auto 0;\n  box-shadow: 0px 0px 5px #cacaca;\n  text-align: center;\n  padding: 30px 0; }\n  .login-frame h3 {\n    margin: 0 0 20px; }\n  .login-frame input {\n    display: inline-block;\n    width: 80%;\n    margin-top: 20px; }\n\nheader {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n  header h1 {\n    color: #fff; }\n\nfooter {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  z-index: -1; }\n  footer p {\n    color: #fff; }\n\n.task-table {\n  margin-top: 25px;\n  border: solid 1px #f1f1f1; }\n\n.page-wrapper {\n  max-width: 1000px;\n  margin: 0 auto; }\n\n.task-item,\n.task-table-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: solid 1px #f1f1f1; }\n  .task-item span,\n  .task-table-header span {\n    border-right: solid 1px #f1f1f1;\n    display: block;\n    padding: 5px;\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis; }\n\n.task-table-header {\n  background: #333;\n  color: #fff; }\n\n.time-created {\n  width: 100px; }\n\n.task-title {\n  width: 250px;\n  position: relative; }\n\n.task-description {\n  width: 500px;\n  position: relative; }\n\n.task-title .tools,\n.task-description .tools {\n  display: none;\n  position: absolute;\n  right: 10px;\n  top: 0;\n  width: 100px;\n  align-items: center;\n  height: 100%; }\n  .task-title .tools span,\n  .task-description .tools span {\n    background: #333;\n    color: #fff;\n    border-radius: 10px;\n    text-align: center;\n    width: 50px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 18px;\n    cursor: pointer; }\n    .task-title .tools span:hover,\n    .task-description .tools span:hover {\n      background: #580aef; }\n\n.task-title:hover .tools,\n.task-description:hover .tools {\n  display: flex; }\n\n.task-status {\n  width: 150px; }\n\n.modal-more {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  width: 500px;\n  max-height: 300px;\n  transform: translate(-50%, -50%);\n  padding: 10px;\n  border: solid 1px #f1f1f1;\n  background: #fff; }\n  .modal-more .modal-more-content {\n    height: 100%;\n    overflow: scroll; }\n\n.modal-edit {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  width: 200px;\n  max-height: 300px;\n  transform: translate(-50%, -50%);\n  padding: 10px; }\n\n.cross,\n.ok {\n  position: absolute;\n  right: -10px;\n  top: -10px;\n  background: #333;\n  width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  cursor: pointer; }\n  .cross span,\n  .ok span {\n    display: flex;\n    align-items: center;\n    height: 100%; }\n    .cross span svg,\n    .ok span svg {\n      fill: #fff;\n      max-height: 80%; }\n  .cross:hover,\n  .ok:hover {\n    background: #580aef; }\n\n.ok {\n  right: 25px; }\n\n.button-add {\n  width: 100px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-size: 16px;\n  text-transform: uppercase;\n  background: #333;\n  color: #fff;\n  margin-top: 20px;\n  border-radius: 20px;\n  cursor: pointer; }\n  .button-add:hover {\n    background: #580aef; }\n\n.modal-add {\n  width: 300px;\n  position: absolute;\n  top: 100px;\n  left: 50%;\n  transform: translate(-50%, 0);\n  background: #fff;\n  box-shadow: 0px 0px 5px #cacaca;\n  text-align: center;\n  padding: 30px 0; }\n  .modal-add h3 {\n    margin: 0 0 20px;\n    font-size: 35px; }\n  .modal-add input,\n  .modal-add textarea {\n    display: inline-block;\n    width: 80%;\n    margin-top: 20px;\n    resize: vertical; }\n", ""]);
+exports.push([module.i, "* {\n  font-family: 'Helvetica Neue';\n  box-sizing: border-box;\n  font-size: 14px; }\n\nhtml {\n  min-width: 100%;\n  min-height: 100%;\n  position: relative;\n  padding-bottom: 120px; }\n\nbody {\n  margin: 0; }\n\n.page-wrapper {\n  max-width: 1000px;\n  margin: 0 auto; }\n\n.login-frame {\n  width: 300px;\n  margin: 200px auto 0;\n  box-shadow: 0px 0px 5px #cacaca;\n  text-align: center;\n  padding: 30px 0; }\n  .login-frame h3 {\n    margin: 0 0 20px; }\n  .login-frame input {\n    display: inline-block;\n    width: 80%;\n    margin-top: 20px; }\n\nheader {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n  header h1 {\n    color: #fff; }\n\nfooter {\n  height: 100px;\n  background: #333;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  z-index: -1; }\n  footer p {\n    color: #fff; }\n\n.task-table {\n  margin-top: 25px;\n  border: solid 1px #f1f1f1; }\n\n.task-item,\n.task-table-header {\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: solid 1px #f1f1f1; }\n  .task-item span,\n  .task-table-header span {\n    border-right: solid 1px #f1f1f1;\n    display: block;\n    padding: 5px;\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis; }\n\n.task-table-header {\n  background: #333;\n  color: #fff; }\n\n.time-created {\n  width: 100px;\n  position: relative; }\n  .time-created:hover .button-delete {\n    display: flex; }\n\n.task-title {\n  width: 250px;\n  position: relative; }\n\n.task-description {\n  width: 500px;\n  position: relative; }\n\n.task-title .tools,\n.task-description .tools {\n  display: none;\n  position: absolute;\n  right: 10px;\n  top: 0;\n  width: 100px;\n  align-items: center;\n  height: 100%; }\n  .task-title .tools span,\n  .task-description .tools span {\n    background: #333;\n    color: #fff;\n    border-radius: 10px;\n    text-align: center;\n    width: 50px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 18px;\n    cursor: pointer; }\n    .task-title .tools span:hover,\n    .task-description .tools span:hover {\n      background: #580aef; }\n\n.task-title:hover .tools,\n.task-description:hover .tools {\n  display: flex; }\n\n.task-status {\n  width: 98px; }\n\n.button-delete {\n  display: none;\n  position: absolute;\n  right: 0;\n  top: 3px;\n  width: 50px;\n  height: 20px;\n  border-radius: 20px;\n  background: #8e1a1a;\n  cursor: pointer;\n  justify-content: center;\n  align-items: center;\n  color: #fff; }\n  .button-delete:hover {\n    background: #580aef; }\n\n.modal-more {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  width: 500px;\n  max-height: 300px;\n  transform: translate(-50%, -50%);\n  padding: 10px;\n  border: solid 1px #f1f1f1;\n  background: #fff; }\n  .modal-more .modal-more-content {\n    height: 100%;\n    overflow: scroll; }\n\n.modal-edit {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  width: 500px;\n  height: 300px;\n  transform: translate(-50%, -50%);\n  padding: 10px; }\n  .modal-edit textarea {\n    width: 100%;\n    height: 100%; }\n\n.cross,\n.ok {\n  position: absolute;\n  right: -10px;\n  top: -10px;\n  background: #333;\n  width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  cursor: pointer; }\n  .cross span,\n  .ok span {\n    display: flex;\n    align-items: center;\n    height: 100%; }\n    .cross span svg,\n    .ok span svg {\n      fill: #fff;\n      max-height: 80%; }\n  .cross:hover,\n  .ok:hover {\n    background: #580aef; }\n\n.ok {\n  right: 25px; }\n\n.button-add {\n  width: 100px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-size: 16px;\n  text-transform: uppercase;\n  background: #333;\n  color: #fff;\n  margin-top: 20px;\n  border-radius: 20px;\n  cursor: pointer; }\n  .button-add:hover {\n    background: #580aef; }\n\n.modal-add {\n  width: 300px;\n  position: absolute;\n  top: 100px;\n  left: 50%;\n  transform: translate(-50%, 0);\n  background: #fff;\n  box-shadow: 0px 0px 5px #cacaca;\n  text-align: center;\n  padding: 30px 0; }\n  .modal-add h3 {\n    margin: 0 0 20px;\n    font-size: 35px; }\n  .modal-add input,\n  .modal-add textarea {\n    display: inline-block;\n    width: 80%;\n    margin-top: 20px;\n    resize: vertical; }\n", ""]);
 
 // exports
 
@@ -26188,6 +26218,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._updateTask = _updateTask;
 exports._createTask = _createTask;
+exports._deleteTask = _deleteTask;
 
 var _Dispatcher = __webpack_require__(105);
 
@@ -26208,6 +26239,13 @@ function _createTask(data) {
 	_Dispatcher2.default.dispatch({
 		type: 'CREATE_TASK',
 		data: data
+	});
+}
+
+function _deleteTask(timestamp) {
+	_Dispatcher2.default.dispatch({
+		type: 'DELETE_TASK',
+		data: timestamp
 	});
 }
 

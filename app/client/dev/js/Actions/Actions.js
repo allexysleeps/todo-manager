@@ -15,3 +15,10 @@ export function _createTask(data) {
 		data: data
 	})
 }
+
+export function _deleteTask(timestamp) {
+	dispatcher.dispatch({
+		type: 'DELETE_TASK',
+		data: timestamp
+	})
+}

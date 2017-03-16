@@ -3,18 +3,21 @@ $colorGrayShadow: 	#cacaca
 $colorBlack: 		#333
 $colorWhite: 		#fff
 $colorViolet: 		#580aef
+$colorRed:			#8e1a1a
 *
 	font-family: 'Helvetica Neue'
 	box-sizing: border-box
 	font-size: 14px
 html,
-body,
-#app,
-.app-body
 	min-width: 100%
 	min-height: 100%
-	margin: 0
 	position: relative
+	padding-bottom: 120px
+body
+	margin: 0
+.page-wrapper
+	max-width: 1000px
+	margin: 0 auto
 
 @import login
 @import headerStyles

@@ -66,6 +66,7 @@ export default class Layout extends React.Component {
 						: '' 
 				}
 			</div>
+			<Footer />
 			</div>
 		);
 	};

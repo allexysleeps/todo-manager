@@ -46,7 +46,18 @@ class Store extends EventEmitter {
 		axios.post('/1', data)
 			.then((res)=> {
 				this._getServerData();
-				console.log(res);
+				console.log('task added, response:', res);
+			})
+			.catch((err)=> {
+				console.log(err);
+			})
+	}
+
+	_deleteTask(data) {
+		axios.delete((`/1/${data}`))
+			.then((res)=> {
+				this._getServerData();
+				console.log('delete succeed, response:', res);
 			})
 			.catch((err)=> {
 				console.log(err);
@@ -72,6 +83,10 @@ class Store extends EventEmitter {
 			}
 			case 'CREATE_TASK': {
 				this._createTask(action.data);
+				break;
+			}
+			case 'DELETE_TASK': {
+				this._deleteTask(action.data);
 				break;
 			}
 		}
