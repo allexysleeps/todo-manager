@@ -6,8 +6,7 @@ import TaskStore from '../Stores/Store';
 import LoginScreen from './LoginScreen';
 import Header from './Header';
 import Footer from './Footer';
-import TasksTable from './TasksTable';
-import AddTask from './AddTask';
+import TaskManagerContent from './TaskManagerContent';
 
 
 
@@ -16,26 +15,18 @@ export default class Layout extends React.Component {
 		super();
 		this.state = {
 			data: TaskStore._getStoreData(),
-			authenticated: false,
-			user: 'test',
-			addModuleStatus: false
+			user: undefined
 		}
 	}
 
-	_toggleAddTaskModal(e, status) {
-		this.setState({
-			addModuleStatus: status
-		})
-	}
-
 	componentWillMount() {
-		TaskStore._getServerData();
-		TaskStore.on('change', ()=> {
-			console.log('store data changed');
-			this.setState({
-				data: TaskStore._getStoreData()
-			})
-		})
+		// TaskStore._getServerData();
+		// TaskStore.on('change', ()=> {
+		// 	console.log('store data changed');
+		// 	this.setState({
+		// 		data: TaskStore._getStoreData()
+		// 	})
+		// })
 	}
 	componentDidMount() {
 		let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 10000);
@@ -51,21 +42,12 @@ export default class Layout extends React.Component {
 		return (
 			<div className='app-body'>
 			<Header />
-			<div className="page-wrapper">
-				{
-					this.state.data
-						? <TasksTable data = {this.state.data}/>
-						: ''
-				}
-				<div className="button-add" onClick={(e)=>{this._toggleAddTaskModal(e, true)}}>
-					add task
-				</div>
-				{
-					this.state.addModuleStatus
-						? <AddTask toggleModal={this._toggleAddTaskModal.bind(this)}/>
-						: '' 
-				}
-			</div>
+			{
+				this.state.user
+					? <TaskManagerContent data={this.state.data}/>
+					: <LoginScreen />
+			}
+			
 			<Footer />
 			</div>
 		);
