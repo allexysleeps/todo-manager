@@ -15,35 +15,37 @@ export default class Layout extends React.Component {
 		super();
 		this.state = {
 			data: TaskStore._getStoreData(),
-			user: undefined
 		}
 	}
 
+
+
 	componentWillMount() {
 		// TaskStore._getServerData();
-		// TaskStore.on('change', ()=> {
-		// 	console.log('store data changed');
-		// 	this.setState({
-		// 		data: TaskStore._getStoreData()
-		// 	})
-		// })
+		TaskStore.on('change', ()=> {
+			console.log('store data changed');
+			this.setState({
+				data: TaskStore._getStoreData()
+			})
+		})
 	}
 	componentDidMount() {
-		let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 10000);
-		this.setState({
-			IntervalServerPull
-		})
+		// let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 10000);
+		// this.setState({
+		// 	IntervalServerPull
+		// })
 	}
 	componentWillUnmount() {
 		clearInterval(this.state.IntervalServerPull);
 	}
 
 	render() {
+		console.log(this.state.data);
 		return (
 			<div className='app-body'>
 			<Header />
 			{
-				this.state.user
+				this.state.data
 					? <TaskManagerContent data={this.state.data}/>
 					: <LoginScreen />
 			}

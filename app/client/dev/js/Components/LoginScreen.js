@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
+import TaskStore from './../Stores/Store';
+
+
 export default class LoginScreen extends React.Component {
 	constructor() {
 		super()
@@ -10,10 +13,11 @@ export default class LoginScreen extends React.Component {
 		e.preventDefault();
 		let username = e.target.elements[0].value;
 		let password = e.target.elements[1].value;
-
+		
 		axios.post('/login', {username, password})
 			.then((res)=> {
 				console.log(res);
+				TaskStore._setUserId(res.data.user.id);
 			})
 			.catch((err)=> {
 				console.log(err);

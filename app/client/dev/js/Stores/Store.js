@@ -6,12 +6,21 @@ import axios from 'axios';
 class Store extends EventEmitter {
 	constructor() {
 		super();
+		this.user_id = undefined;
 		this.tasks = undefined;
 	}
 
+	_setUserId(user_id) {
+		this.user_id = user_id;
+		this._getServerData();
+	}
+
 	_getStoreData() {
-		console.log('data polled from the store', this.tasks);
-		return this.tasks
+		if(this.user_id) {
+			return this.tasks;
+		} else {
+			return undefined;
+		}
 	}
 	
 	_updateTask(editingData) {
@@ -32,7 +41,7 @@ class Store extends EventEmitter {
 		
 		newData[field] = changedData;
 		
-		axios.put(`/1/${data.timestamp}`, newData)
+		axios.put(`/${this.user_id}/${data.timestamp}`, newData)
 			.then((res)=> {
 				this._getServerData();
 			})
@@ -43,7 +52,7 @@ class Store extends EventEmitter {
 
 	_createTask(data) {
 		console.log(data);
-		axios.post('/1', data)
+		axios.post(`/${this.user_id}`, data)
 			.then((res)=> {
 				this._getServerData();
 				console.log('task added, response:', res);
@@ -54,7 +63,7 @@ class Store extends EventEmitter {
 	}
 
 	_deleteTask(data) {
-		axios.delete((`/1/${data}`))
+		axios.delete((`/${this.user_id}/${data}`))
 			.then((res)=> {
 				this._getServerData();
 				console.log('delete succeed, response:', res);
@@ -65,10 +74,11 @@ class Store extends EventEmitter {
 	}
 
 	_getServerData() {
-		axios.get(`/1`)
+		axios.get(`/${this.user_id}`)
 			.then((res)=>{
 				this.tasks = res.data;
 				this.emit('change');
+				console.log(this.tasks);
 			})
 			.catch((err)=>{
 				console.log(err);
