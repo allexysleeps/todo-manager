@@ -1,7 +1,7 @@
 const db = require('./db');
 
 function sendData(req, res, next) {
-	let user_id = req.params;
+	let user_id = req.params.user_id;
 	db('tasks')
 		.where('user_id', user_id)
 		.then((tasks)=> {
@@ -17,7 +17,6 @@ function addTask(req, res, next) {
 		status: req.body.status,
 		user_id: req.params.user_id		
 	}
-	console.log(newTask);
 	db('tasks')
 		.insert(newTask)
 		.then(()=>{
@@ -49,8 +48,6 @@ function updateTask(req, res, next) {
 		.update(newData)
 		.then(()=> {
 			res.sendStatus(200);
-			console.log('task updated');
-			console.log(newData);
 		})
 }
 

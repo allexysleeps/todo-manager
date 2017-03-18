@@ -10,6 +10,19 @@ class Store extends EventEmitter {
 		this.tasks = undefined;
 	}
 
+	_checkSession() {
+		axios.get('/check')
+			.then((res)=> {
+				if(res.data.user.id) {
+					this._setUserId(res.data.user.id);
+					this._getServerData();
+				}
+			})
+			.catch((err)=> {
+				return
+			})
+	}
+
 	_setUserId(user_id) {
 		this.user_id = user_id;
 		this._getServerData();
@@ -21,6 +34,22 @@ class Store extends EventEmitter {
 		} else {
 			return undefined;
 		}
+	}
+
+	_getServerData() {
+		if(this.user_id) {
+			axios.get(`/data/${this.user_id}`)
+				.then((res)=>{
+					this.tasks = res.data;
+					this.emit('change');
+				})
+				.catch((err)=>{
+					console.log(err);
+				})
+			} else {
+				return undefined;
+			}
+		
 	}
 	
 	_updateTask(editingData) {
@@ -52,10 +81,9 @@ class Store extends EventEmitter {
 
 	_createTask(data) {
 		console.log(data);
-		axios.post(`/${this.user_id}`, data)
+		axios.post(`/add/${this.user_id}`, data)
 			.then((res)=> {
 				this._getServerData();
-				console.log('task added, response:', res);
 			})
 			.catch((err)=> {
 				console.log(err);
@@ -66,21 +94,8 @@ class Store extends EventEmitter {
 		axios.delete((`/${this.user_id}/${data}`))
 			.then((res)=> {
 				this._getServerData();
-				console.log('delete succeed, response:', res);
 			})
 			.catch((err)=> {
-				console.log(err);
-			})
-	}
-
-	_getServerData() {
-		axios.get(`/${this.user_id}`)
-			.then((res)=>{
-				this.tasks = res.data;
-				this.emit('change');
-				console.log(this.tasks);
-			})
-			.catch((err)=>{
 				console.log(err);
 			})
 	}

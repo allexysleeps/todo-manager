@@ -4,19 +4,18 @@ import axios from 'axios';
 import TaskStore from './../Stores/Store';
 
 
-export default class LoginScreen extends React.Component {
+export default class SignIn extends React.Component {
 	constructor() {
 		super()
 	}
 
-	_logIn(e) {
+	_signIn(e) {
 		e.preventDefault();
 		let username = e.target.elements[0].value;
 		let password = e.target.elements[1].value;
-		
+
 		axios.post('/login', {username, password})
 			.then((res)=> {
-				console.log(res);
 				TaskStore._setUserId(res.data.user.id);
 			})
 			.catch((err)=> {
@@ -26,23 +25,22 @@ export default class LoginScreen extends React.Component {
 	
 	render() {
 		return(
-			<div className="login-frame">
-				<h3>Log In</h3>
-				<form onSubmit={(e)=>{this._logIn(e)}} className="login-form">
-					<input 
-						defaultValue="test"
+			<div className="sign-frame">
+				<h3>Sign In</h3>
+				<form onSubmit={(e)=>{this._signIn(e)}} className="login-form">
+					<input
 						type="text"
 						name="username"
 						required
 						placeholder="Username"/>
 					<input
-						defaultValue="test"
 						type="password"
 						name="password"
 						required
 						placeholder="Password"/>
-					<input type="submit" value="Log In" />
+					<input type="submit" value="Sign In" />
 				</form>
+				<p className='sign-switcher' onClick={(e)=>{this.props._signSwitch(e, 'signup')}}>Sign up</p>
 			</div>
 		)
 	}

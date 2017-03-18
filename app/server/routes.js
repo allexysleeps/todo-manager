@@ -19,14 +19,27 @@ router
 			isAuthenticated: req.isAuthenticated()
 		})
 	})
-	.get('/:user_id', requireLogin, (req, res, next)=> {
+	.post('/signup', passport.authenticate('local-register'), (req, res)=> {
+		res.send({
+			session: req.session,
+			user: req.user,
+			isAuthenticated: req.isAuthenticated()
+		})
+
+	})
+	.get('/check', (req, res, next)=> {
+		res.send({
+			session: req.session,
+			user: req.user,
+			isAuthenticated: req.isAuthenticated()
+		})
+	})
+	.get('/data/:user_id', requireLogin, (req, res, next)=> {
 		sendData(req, res, next);
 		
 	})
-	.post('/:user_id', requireLogin, (req, res, next)=> {
-		if(req.params.user_id != 'login') {
-			addTask(req, res, next);
-		}
+	.post('/add/:user_id', requireLogin, (req, res, next)=> {
+		addTask(req, res, next);
 	})
 	.delete('/:user_id/:timestamp', requireLogin, (req, res, next)=> {
 		deleteTask(req, res, next);
