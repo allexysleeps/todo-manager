@@ -18,6 +18,7 @@ export default class Layout extends React.Component {
 			data: TaskStore._getStoreData(),
 			signModal: 'signin'
 		}
+		this._pullStoreData = this._pullStoreData.bind(this);
 	}
 
 	_signSwitch(e, nextModal) {
@@ -26,13 +27,15 @@ export default class Layout extends React.Component {
 		})
 	}
 
+	_pullStoreData() {
+		this.setState({
+			data: TaskStore._getStoreData()
+		})
+	}
+
 	componentWillMount() {
 		TaskStore._checkSession();
-		TaskStore.on('change', ()=> {
-			this.setState({
-				data: TaskStore._getStoreData()
-			})
-		})
+		TaskStore.on('change', this._pullStoreData)
 	}
 	componentDidMount() {
 		let IntervalServerPull = setInterval(()=>{TaskStore._getServerData()}, 10000);
@@ -42,6 +45,7 @@ export default class Layout extends React.Component {
 	}
 	componentWillUnmount() {
 		clearInterval(this.state.IntervalServerPull);
+		TaskStore.removeListener('change', this._pullStoreData)
 	}
 
 	render() {
